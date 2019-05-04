@@ -18,5 +18,4 @@ spec:
         - name: dockapp
           image:  r.cfcr.io/dovu-io/jamiew87/dockapp:master
           ports:
-            - name: http
-containerPort: 8080
+            - containerPort: 8080
