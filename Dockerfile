@@ -23,4 +23,4 @@ RUN go install -v ./...
 EXPOSE 8080
 
 # Run the executable
-CMD ["go run hello_world.go"]
+CMD ["go run dockapp"]
