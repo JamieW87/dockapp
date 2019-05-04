@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dockapp
+  labels:
+    app: dockapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dockapp
+  template:
+    metadata:
+      labels:
+        app: dockapp
+    spec:
+      containers:
+        - name: dockapp
+          image:  r.cfcr.io/dovu-io/jamiew87/dockapp:master
+          ports:
+            - name: http
+containerPort: 8080
