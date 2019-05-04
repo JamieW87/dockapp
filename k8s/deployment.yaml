@@ -19,3 +19,6 @@ spec:
           image:  r.cfcr.io/dovu-io/jamiew87/dockapp:master
           ports:
             - containerPort: 8080
+      imagePullSecrets:
+        - name: myregistrykey
+            
