@@ -5,4 +5,4 @@ metadata:
 spec:
   backend:
     serviceName: dockapp-service
-    servicePort: 3000
+    servicePort: 8080
