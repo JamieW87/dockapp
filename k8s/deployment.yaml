@@ -1,24 +1,47 @@
+#Lines 1-10 Declare the deployment itself.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dockapp
-  labels:
-    app: dockapp
+  name: dockapp-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: dockapp
+#Below here is declaring the pod that is managed by the above deployment.
   template:
     metadata:
       labels:
+      #Assigns the label app:dockapp to all pods within this deployment.
+      #Means the deployment can find all pods within it via line 10
         app: dockapp
     spec:
       containers:
         - name: dockapp
-          image:  r.cfcr.io/dovu-io/jamiew87/dockapp:master
+        #States the image that will be put inside the pod. Secret to get access is declared below
+          image: jamiedovu/dockapp
           ports:
-            - containerPort: 8080
-      imagePullSecrets:
-        - name: myregistrykey
+          - containerPort: 8080
+            name: http
+
+#Below declares our service which deals with handling traffic.
+#A loadbalancer... NOT an ingress.
+---
+kind: Service               #+
+apiVersion: v1              #+
+metadata:                   #+
+  name: dockapp-service     #+
+spec:                       #+
+  selector:                 #+
+    app: dockapp            #+
+  ports:                    #+
+  - protocol: TCP           #+
+    targetPort: 3000        #+
+    port: 80                #+
+    name: http              #+
+  type: NodePort            #+
+
+#Run kubectl apply -f deployment.yaml (in the directory) to deploy this to k8s
             
+
+#docker login r.cfcr.io -u Jamie_Willison -p 46c94dcfc9a37cd4299cc71c4f9a4a9a
